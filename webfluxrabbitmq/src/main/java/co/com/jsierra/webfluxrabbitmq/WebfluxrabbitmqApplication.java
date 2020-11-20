@@ -5,9 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 public class WebfluxrabbitmqApplication {
-
 	public static void main(String[] args) {
-		SpringApplication.run(WebfluxrabbitmqApplication.class, args);
-	}
-
+        SpringApplication.run(WebfluxrabbitmqApplication.class, args);
+    }
 }
