@@ -17,7 +17,4 @@ variables:
   routing: webflux_key
   queue: demo_webflux
   durable: false
-  exchange2: webflux
-  routing2: webflux_key
-  queue2: demo_webflux
-  queue3: demo_webflux
+  autodelete: true
