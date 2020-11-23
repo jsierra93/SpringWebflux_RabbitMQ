@@ -45,6 +45,7 @@ public class RabbitSendReceive {
         Flux<OutboundMessageResult> confirmations = sender.sendWithPublishConfirms(
                 Flux.just(new OutboundMessage("", queueName, message.getBytes()))
         );
+
         return sender.declareQueue(QueueSpecification.queue(queueName).autoDelete(autodelete))
                 .thenMany(confirmations)
                 .doOnError(e -> LOGGER.error("Envio Fallido", e))
@@ -91,6 +92,7 @@ public class RabbitSendReceive {
     }*/
 
     public Mono<Void> purgeQueue(){
+        LOGGER.info("Purgando cola {}", queueName);
         amqpAdmin.purgeQueue(queueName);
         return Mono.empty();
     }

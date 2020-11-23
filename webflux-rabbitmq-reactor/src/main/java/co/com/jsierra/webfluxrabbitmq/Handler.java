@@ -2,7 +2,6 @@ package co.com.jsierra.webfluxrabbitmq;
 
 
 import co.com.jsierra.webfluxrabbitmq.services.RabbitSendReceive;
-import com.rabbitmq.client.Delivery;
 import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,13 +18,12 @@ import reactor.rabbitmq.Sender;
 public class Handler {
     private static final Logger LOGGER = LoggerFactory.getLogger(Handler.class);
     Sender sender;
-    Flux<Delivery> deliveryFlux;
 
     @Autowired
     RabbitSendReceive rabbitSendReceive;
 
     public Mono<ServerResponse> sendMessage(ServerRequest request) {
-        String message = request.headers().header("mensaje").get(0);
+        String message = request.headers().header("message").get(0);
 
         Flux<String> queueResponse = rabbitSendReceive.sendMessage(message)
                 .filter(x -> x.isAck())
@@ -55,5 +53,6 @@ public class Handler {
                 .body(rabbitSendReceive.purgeQueue(), Void.class);
 
     }
+
 }
 

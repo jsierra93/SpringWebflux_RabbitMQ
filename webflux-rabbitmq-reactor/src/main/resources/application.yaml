@@ -18,3 +18,17 @@ variables:
   queue: demo_webflux
   durable: false
   autodelete: true
+  version: trunk.20201123.1
+
+management:
+  health:
+    ping:
+      enabled: false
+    diskspace:
+      enabled: false
+  endpoint:
+    health:
+      show-details: always
+
+movement:
+  url: https://movements-api.getsandbox.com:443/jsierra93/movimientos_depositos/1.0.0/health
