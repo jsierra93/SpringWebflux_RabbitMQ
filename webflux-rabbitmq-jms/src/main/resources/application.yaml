@@ -1,0 +1,19 @@
+server:
+  port: 8081
+spring:
+  rabbitmq:
+    host: localhost
+    port: 5672
+    addresses: localhost:5672
+    username: dev1234
+    password: dev1234
+    virtual-host: /
+    dynamic: true
+  application:
+    name: spring-jms-rabbitmq
+project:
+  version: trunk.20201123.1
+
+variables:
+  rabbitmq:
+    queue: demo-webflux
