@@ -1,4 +1,4 @@
-package co.com.jsierra.webfluxrabbitmq.health;
+package co.com.jsierra.webfluxrabbitmq.models;
 
 import lombok.*;
 

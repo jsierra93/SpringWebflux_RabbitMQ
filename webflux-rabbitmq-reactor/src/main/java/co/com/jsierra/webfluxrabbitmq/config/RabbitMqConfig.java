@@ -33,7 +33,6 @@ public class RabbitMqConfig {
     @Value("${variables.autodelete}")
     public boolean autodelete;
 
-
     @Autowired
     Mono<Connection> connectionMono;
     @Autowired
@@ -66,7 +65,6 @@ public class RabbitMqConfig {
 
     @PostConstruct
     public void init() {
-        LOGGER.info("init RabbitMQConfig");
         amqpAdmin.declareQueue(new Queue(queueName, isDurableQueue, false, autodelete));
     }
 

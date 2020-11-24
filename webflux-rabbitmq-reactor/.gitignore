@@ -39,3 +39,7 @@ out/
 .idea/
 build/
 !gradle/
+
+.docker/
+
+../.Ds_Store

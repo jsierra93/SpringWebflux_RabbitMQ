@@ -12,6 +12,9 @@ spring:
 server:
   port: 8081
 
+project:
+  version: trunk.20201123.1
+
 variables:
   exchange: webflux
   routing: webflux_key
@@ -26,6 +29,10 @@ management:
       enabled: false
     diskspace:
       enabled: false
+    rabbit:
+      enabled: true
+    versionDeploy:
+      enabled: true
   endpoint:
     health:
       show-details: always

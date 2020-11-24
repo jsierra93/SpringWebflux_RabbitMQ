@@ -1,5 +1,6 @@
 package co.com.jsierra.webfluxrabbitmq.health;
 
+import co.com.jsierra.webfluxrabbitmq.models.Status;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.actuate.health.Health;
 import org.springframework.boot.actuate.health.HealthIndicator;
