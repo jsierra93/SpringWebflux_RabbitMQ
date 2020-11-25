@@ -5,8 +5,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class Receiver {
-
-    @JmsListener(destination = "${variables.rabbitmq.queue}", containerFactory = "myFactory")
+    @JmsListener(destination = "${variables.queue-name}", containerFactory = "myFactory")
     public void receiveMessage(String messageQueue) {
         System.out.println("Received <" + messageQueue + ">");
     }

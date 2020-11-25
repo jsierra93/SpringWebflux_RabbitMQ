@@ -1,12 +1,11 @@
 package co.com.jsierra.jmsrabbitmq.controllers;
 
 
+import co.com.jsierra.jmsrabbitmq.config.JmsConfig;
 import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.amqp.core.AmqpAdmin;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.server.ServerRequest;
@@ -21,13 +20,12 @@ public class Handler {
     @Autowired
     JmsTemplate jmsTemplate;
 
-
-    @Value("${variables.rabbitmq.queue}")
-    public String queueName;
+    @Autowired
+    JmsConfig jmsConfig;
 
     public Mono<ServerResponse> sendMessage(ServerRequest request) {
         String message = request.headers().header("message").get(0);
-        jmsTemplate.convertAndSend("demo-webflux", "20201102202001000   A11065001150 2000");
+        jmsTemplate.convertAndSend(jmsConfig.queueName, message);
         return ServerResponse.ok()
                 .body(Mono.just(message), String.class);
     }

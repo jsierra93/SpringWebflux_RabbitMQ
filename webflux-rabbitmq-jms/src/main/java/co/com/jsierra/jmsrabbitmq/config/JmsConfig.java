@@ -3,6 +3,8 @@ package co.com.jsierra.jmsrabbitmq.config;
 import com.rabbitmq.jms.admin.RMQConnectionFactory;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.amqp.RabbitProperties;
 import org.springframework.boot.autoconfigure.jms.DefaultJmsListenerContainerFactoryConfigurer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -21,12 +23,14 @@ import javax.jms.JMSException;
 @EnableJms
 public class JmsConfig {
 
-    private static final Log log = LogFactory.getLog(JmsConfig.class);
+    @Value("${variables.queue-name}")
+    public String queueName;
+
+    private static final Log LOGGER = LogFactory.getLog(JmsConfig.class);
 
     @Bean
     public JmsListenerContainerFactory<?> myFactory(ConnectionFactory connectionFactory,
                                                     DefaultJmsListenerContainerFactoryConfigurer configurer) throws JMSException {
-        connectionFactory.createConnection("dev1234", "dev1234");
         DefaultJmsListenerContainerFactory factory = new DefaultJmsListenerContainerFactory();
         configurer.configure(factory, connectionFactory);
         return factory;
@@ -34,8 +38,13 @@ public class JmsConfig {
 
 
     @Bean
-    ConnectionFactory connectionFactory() {
-        return new RMQConnectionFactory();
+    ConnectionFactory connectionFactory(RabbitProperties rabbitProperties) {
+        RMQConnectionFactory connectionFactory = new RMQConnectionFactory();
+        connectionFactory.setHost(rabbitProperties.getHost());
+        connectionFactory.setPort(rabbitProperties.getPort());
+        connectionFactory.setUsername(rabbitProperties.getUsername());
+        connectionFactory.setPassword(rabbitProperties.getPassword());
+        return connectionFactory;
     }
 
     // @Bean Serialize message content to json using TextMessage
